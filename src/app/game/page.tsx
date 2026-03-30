@@ -1,29 +1,35 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button, Box, Text } from "@chakra-ui/react";
+import { Button, Box, Text, HStack } from "@chakra-ui/react";
 import { useGameStore } from "@/stores/store";
 import HandView from "@/components/HandView";
-import { calculateHandValue } from "@/utils/calculateHandValue";
 
 export default function GamePage() {
-  const { startGame, drawHand, currentHand, tileValues } = useGameStore();
-  // start game on component mount
+  const { startGame, placeBet, currentHand, currentValue, score } = useGameStore();
+
   useEffect(() => {
     startGame();
   }, [startGame]);
 
-  const value = calculateHandValue(currentHand, tileValues);
 
   return (
     <Box p={6} textAlign="center" mt={10} borderWidth="1px" borderRadius="md">
-      <Button onClick={drawHand} colorScheme="teal">
-        Draw Hand
-      </Button>
 
-      <Text mt={4}>Hand Value: {value}</Text>
+      <Text mt={2}>Score: {score}</Text>
+      <Text mt={4}>Hand Value: {currentValue}</Text>
 
       <HandView hand={currentHand} />
+
+      <HStack mt={6}>
+        <Button colorScheme="green" onClick={() => placeBet("higher")}>
+          Bet Higher
+        </Button>
+
+        <Button colorScheme="red" onClick={() => placeBet("lower")}>
+          Bet Lower
+        </Button>
+      </HStack>
     </Box>
   );
 }
