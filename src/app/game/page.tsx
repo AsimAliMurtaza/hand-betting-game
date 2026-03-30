@@ -6,7 +6,7 @@ import { useGameStore } from "@/stores/store";
 import HandView from "@/components/HandView";
 
 export default function GamePage() {
-  const { startGame, placeBet, currentHand, currentValue, score } = useGameStore();
+  const { startGame, placeBet, currentHand, currentValue, tileValues, score } = useGameStore();
 
   useEffect(() => {
     startGame();
@@ -18,10 +18,11 @@ export default function GamePage() {
 
       <Text mt={2}>Score: {score}</Text>
       <Text mt={4}>Hand Value: {currentValue}</Text>
+      <Text mt={2}>Tile Values: {JSON.stringify(tileValues)}</Text>
 
       <HandView hand={currentHand} />
 
-      <HStack mt={6}>
+      <HStack mt={6} justify="center" spacing={4}>
         <Button colorScheme="green" onClick={() => placeBet("higher")}>
           Bet Higher
         </Button>

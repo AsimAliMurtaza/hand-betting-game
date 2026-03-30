@@ -4,9 +4,11 @@ import { Tile } from "@/types/types";
 
 export default function HandView({ hand }: { hand: Tile[] }) {
   return (
-    <HStack>
+    <HStack mt={4} justify="center" spacing={4}>
       {hand.map((tile) => (
+        <>
         <TileCard key={tile.id} label={tile.label} />
+        </>
       ))}
     </HStack>
   );
