@@ -12,7 +12,13 @@ export default function HistoryView({ history }: { history: HistoryItem[] }) {
   const { tileValues } = useGameStore();
   return (
     <Box mt={8} w="100%">
-      <Text fontSize="lg" mb={3} color="gray.300" fontWeight="bold" textAlign="center">
+      <Text
+        fontSize="lg"
+        mb={3}
+        color="gray.300"
+        fontWeight="bold"
+        textAlign="center"
+      >
         History
       </Text>
 
@@ -43,7 +49,7 @@ export default function HistoryView({ history }: { history: HistoryItem[] }) {
 
             <HStack spacing={2} flexWrap="wrap">
               {item.hand.map((tile) => (
-                <TileCard key={tile.id} tile={tile} tileValues={tileValues} />
+                <TileCard key={tile.id} tile={tile} tileValues={tileValues} size="lg" />
               ))}
             </HStack>
           </Box>

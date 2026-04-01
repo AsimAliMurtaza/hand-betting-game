@@ -23,12 +23,24 @@ export default function GameBoard() {
       gap={6}
       alignItems="flex-start"
     >
-      <Button onClick={() => router.push("/")} borderRadius="full" variant="solid" colorScheme="teal">
-        Back to Home
-      </Button>
-      <Button onClick={() => startGame()} borderRadius="full" variant="solid" colorScheme="green">
-        Reset Game
-      </Button>
+      <VStack spacing={6} align="stretch">
+        <Button
+          onClick={() => router.push("/")}
+          borderRadius="full"
+          variant="solid"
+          colorScheme="teal"
+        >
+          Back to Home
+        </Button>
+        <Button
+          onClick={() => startGame()}
+          borderRadius="full"
+          variant="solid"
+          colorScheme="green"
+        >
+          Reset Game
+        </Button>
+      </VStack>
 
       <Box flex="1">
         <VStack spacing={6} align="stretch">

@@ -94,8 +94,6 @@ export const useGameStore = create<GameState>((set, get) => ({
     }
 
     const updatedTileValues = updateTileValues(newHand, tileValues, isWin);
-    console.log("Placed bet:", bet, "New hand:", newHand, "New value:", newValue, "Win:", isWin);
-    console.log("Updated tile values:", updatedTileValues);
     const hitTileLimit = checkTileLimits(updatedTileValues);
 
     set({

@@ -139,3 +139,46 @@ http://localhost:3000
 * **Score panel**: Shows score, current hand value, reshuffles, draw/discard pile counts
 * **Leaderboard**: Persistent top scores
 * **Landing page**: Full-screen background, “New Game” button, leaderboard
+
+## What's Handwritten vs AI-Assisted
+
+This project was primarily developed independently, with selective AI assistance used to enhance specific areas.
+
+### Handwritten 
+
+* Overall game architecture and flow
+* Zustand state management structure
+* Core gameplay mechanics (betting system, hand comparison, scoring)
+* Tile system and value updates
+* Game end conditions
+* Integration of all components into a working application
+
+### AI-Assisted Areas
+
+AI was used as a support tool in the following areas:
+
+* **Animations**
+
+  * Implemented using Framer Motion for smoother UI interactions
+
+* **UI Enhancements**
+
+  * Refinements to:
+
+    * History panel layout
+    * Score panel design
+    * Tile card design
+    * Landing page
+    * UI for 3D deck simulation
+    * Background styling and overall visual polish
+
+* **Deck Management Logic**
+
+  * Assistance in refining reshuffle behavior and edge cases
+  * Improving reliability of draw/discard pile handling
+
+---
+
+### Note
+
+AI assistance was used as a **productivity and learning aid**, not as a replacement for understanding. All generated suggestions were reviewed, adapted, and integrated into the project manually.
