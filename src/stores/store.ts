@@ -27,20 +27,20 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   // Initialize the game state with a shuffled set of tiles
   startGame: () => {
-    const tiles = shuffle(createTiles());
-    // draw the first hand and calculate its value
-    const firstHand = tiles.slice(0, HAND_SIZE);
-    const remaining = tiles.slice(HAND_SIZE);
-    const firstValue = calculateHandValue(firstHand, INITIAL_TILE_VALUES);
+    const deck = shuffle(createTiles());
+    const firstHand = deck.slice(0, HAND_SIZE);
+    const remaining = deck.slice(HAND_SIZE);
+
+    const initialHandValue = calculateHandValue(firstHand, INITIAL_TILE_VALUES);
 
     set({
       drawPile: remaining,
       discardPile: [],
-      currentHand: [],
+      currentHand: firstHand,
       previousHand: [],
       score: 0,
       tileValues: { ...INITIAL_TILE_VALUES },
-      currentValue: firstValue,
+      currentValue: initialHandValue,
       previousValue: 0,
       isGameOver: false,
       gameOverReason: null,
@@ -69,7 +69,6 @@ export const useGameStore = create<GameState>((set, get) => ({
         return;
       }
 
-      // 🔀 reshuffle
       const newDeck = shuffle([...discardPile, ...createTiles()]);
 
       set({
@@ -110,25 +109,11 @@ export const useGameStore = create<GameState>((set, get) => ({
           value: currentValue,
         },
         ...get().history,
-      ].slice(0, 10), 
+      ].slice(0, 10),
       score: isWin ? score + 1 : score,
       tileValues: updatedTileValues,
-      isGameOver: !isWin || hitTileLimit,
-      gameOverReason: !isWin ? "wrong_bet" : hitTileLimit ? "tile_limit" : null,
-    });
-  },
-  // draw a new hand of tiles, update the draw pile and discard pile accordingly
-  drawHand: () => {
-    const { drawPile, currentHand, discardPile } = get();
-
-    const newHand = drawPile.slice(0, HAND_SIZE);
-    const remaining = drawPile.slice(HAND_SIZE);
-
-    set({
-      previousHand: currentHand,
-      currentHand: newHand,
-      drawPile: remaining,
-      discardPile: [...discardPile, ...currentHand],
+      isGameOver: hitTileLimit,
+      gameOverReason: hitTileLimit ? "tile_limit" : null,
     });
   },
 }));

@@ -3,7 +3,8 @@ import { useGameStore } from "@/stores/store";
 import { MAX_RESHUFFLES } from "@/constants/constants";
 
 export default function ScorePanel() {
-  const { score, currentValue, reshuffles } = useGameStore();
+  const { score, currentValue, reshuffles, drawPile, discardPile } =
+    useGameStore();
 
   return (
     <Box
@@ -45,6 +46,26 @@ export default function ScorePanel() {
           </Text>
           <Text fontSize="2xl" fontWeight="semibold">
             {reshuffles}/{MAX_RESHUFFLES}
+          </Text>
+        </VStack>
+
+        <Box h="40px" w="1px" bg="whiteAlpha.300" />
+        <VStack spacing={0}>
+          <Text fontSize="sm" color="gray.300">
+            Draw Pile
+          </Text>
+          <Text fontSize="2xl" fontWeight="semibold">
+            {drawPile.length}
+          </Text>
+        </VStack>
+
+        <Box h="40px" w="1px" bg="whiteAlpha.300" />
+        <VStack spacing={0}>
+          <Text fontSize="sm" color="gray.300">
+            Discard Pile
+          </Text>
+          <Text fontSize="2xl" fontWeight="semibold">
+            {discardPile.length}
           </Text>
         </VStack>
       </HStack>
