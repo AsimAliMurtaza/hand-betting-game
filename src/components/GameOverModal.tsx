@@ -11,7 +11,7 @@ import { useGameStore } from "@/stores/store";
 import { useRouter } from "next/navigation";
 
 export default function GameOverModal() {
-  const { isGameOver, score, startGame } = useGameStore();
+  const { isGameOver, score, startGame, gameOverReason } = useGameStore();
   const router = useRouter();
 
   return (
@@ -27,7 +27,12 @@ export default function GameOverModal() {
         <ModalHeader>Game Over</ModalHeader>
 
         <ModalBody display="flex" flexDirection="column" alignItems="center">
-          <Text>Final Score: {score}</Text>
+          <Text fontSize="lg" mb={4}>
+            Reason: {gameOverReason}
+          </Text>
+          <Text fontSize="xl" mb={4}>
+            Your final score is {score}!
+          </Text>
 
           <Button mt={4} onClick={startGame}>
             Play Again

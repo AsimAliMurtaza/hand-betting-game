@@ -2,8 +2,15 @@ import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
 export default function Leaderboard({ scores }: { scores: number[] }) {
   return (
-    <Box mt={6} >
-      <Text fontSize="xl" justifyContent="center" textAlign="center" fontWeight="bold" mb={3} color="teal.300">
+    <Box mt={6}>
+      <Text
+        fontSize="2xl"
+        justifyContent="center"
+        textAlign="center"
+        fontWeight="bold"
+        mb={3}
+        color="teal.300"
+      >
         Leaderboard
       </Text>
 
@@ -30,7 +37,7 @@ export default function Leaderboard({ scores }: { scores: number[] }) {
             justify="space-between"
             p={2}
             borderRadius="md"
-            bg={index === 0 ? "yellow.400" : "whiteAlpha.50"}
+            bg={index === 0 ? "green.400" : "whiteAlpha.50"}
             _hover={{ bg: "whiteAlpha.200", transform: "scale(1.02)" }}
             transition="all 0.2s ease"
           >

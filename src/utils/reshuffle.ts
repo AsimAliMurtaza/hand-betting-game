@@ -1,5 +1,4 @@
 import { Tile } from "@/types/types";
-import { createTiles } from "./createTiles";
 import { shuffle } from "./shuffle";
 
 export function reshuffleIfNeeded(
