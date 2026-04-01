@@ -1,12 +1,8 @@
 import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 import TileCard from "./TileCard";
-import { Tile } from "@/types/types";
+import { Tile, HistoryItem } from "@/types/types";
 import { useGameStore } from "@/stores/store";
 
-type HistoryItem = {
-  hand: Tile[];
-  value: number;
-};
 
 export default function HistoryView({ history }: { history: HistoryItem[] }) {
     //Take the history from gameboard and render it here.

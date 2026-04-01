@@ -7,6 +7,7 @@ import { useGameStore } from "@/stores/store";
 import DeckStack from "@/components/DeckStack";
 import DiscardStack from "@/components/DiscardStack";
 import { useRouter } from "next/navigation";
+import CharacterTilesView from "./CharacterTilesValue";
 
 export default function GameBoard() {
   const { currentHand, history, drawPile, discardPile, startGame } =
@@ -23,6 +24,7 @@ export default function GameBoard() {
       gap={6}
       alignItems="flex-start"
     >
+
       <VStack spacing={6} align="stretch">
         <Button
           onClick={() => router.push("/")}
@@ -41,9 +43,12 @@ export default function GameBoard() {
         >
           Reset Game
         </Button>
+      <CharacterTilesView />
+
       </VStack>
 
       <Box flex="1">
+        
         <VStack spacing={6} align="stretch">
           {/* Render the score panel at the top of the game board, which displays the current score, value, reshuffles, and pile counts */}
           <ScorePanel />
@@ -59,6 +64,7 @@ export default function GameBoard() {
 
           <Controls />
         </VStack>
+        
       </Box>
 
       <Box w="350px" maxH="calc(100vh - 48px)" overflowY="auto" pr={2}>
