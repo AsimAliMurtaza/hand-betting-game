@@ -1,10 +1,12 @@
 import { Box, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { DECK_STACK_LAYER_SIZE } from "@/constants/constants";
 
 const MotionBox = motion(Box);
 
 export default function DeckStack({ count }: { count: number }) {
-  const layers = Math.min(5, Math.floor(count / 5));
+  // Calculate the number of layers to display
+  const layers = Math.min(5, Math.floor(count / DECK_STACK_LAYER_SIZE));
 
   return (
     <Box position="relative" w="100px" h="130px">

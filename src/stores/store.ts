@@ -28,14 +28,22 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   // Initialize the game state with a shuffled set of tiles
   startGame: () => {
+    // Create a new shuffled deck of tiles
     const deck = shuffle(createTiles());
+    // Draw the initial hand
     const firstHand = deck.slice(0, HAND_SIZE);
+    // The remaining tiles after drawing the initial hand
     const remaining = deck.slice(HAND_SIZE);
-
+    // Calculate the initial hand value using the calculateHandValue utility function
     const initialHandValue = calculateHandValue(firstHand, INITIAL_TILE_VALUES);
 
-    console.log("Starting game with hand:", firstHand, "Value:", initialHandValue);
-
+    console.log(
+      "Starting game with hand:",
+      firstHand,
+      "Value:",
+      initialHandValue,
+    );
+    // Set the initial state of the game, including the draw pile, discard pile, current hand, score, tile values, and game status.
     set({
       drawPile: remaining,
       discardPile: [],
@@ -53,6 +61,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   placeBet: (bet) => {
+    // Retrieve the current game state values needed for processing the bet
     let {
       drawPile,
       currentHand,
@@ -62,19 +71,19 @@ export const useGameStore = create<GameState>((set, get) => ({
       score,
       discardPile,
     } = get();
-
+    // Check if the draw pile needs to be reshuffled before drawing the next hand
     const reshuffleResult = reshuffleIfNeeded(
       drawPile,
       discardPile,
       reshuffles,
       MAX_RESHUFFLES,
     );
-
+    // Handle game over conditions if the maximum reshuffles have been reached.
     if (reshuffleResult.gameOver) {
       set({ isGameOver: true, gameOverReason: "deck_exhausted" });
       return;
     }
-
+    // Update the draw pile, discard pile, and reshuffle count based on the reshuffle result
     drawPile = reshuffleResult.drawPile;
     discardPile = reshuffleResult.discardPile;
     reshuffles = reshuffleResult.reshuffles;
@@ -82,7 +91,6 @@ export const useGameStore = create<GameState>((set, get) => ({
     // draw next hand
     const newHand = drawPile.slice(0, HAND_SIZE);
     const remaining = drawPile.slice(HAND_SIZE);
-
     const newValue = calculateHandValue(newHand, tileValues);
 
     let isWin = false;
@@ -92,10 +100,11 @@ export const useGameStore = create<GameState>((set, get) => ({
     } else {
       isWin = newValue < currentValue;
     }
-
+    // update tile values for non-number tiles in the hand based on whether the bet was correct or not
     const updatedTileValues = updateTileValues(newHand, tileValues, isWin);
+    // check if any tile values have reached the limits that would trigger a game over condition
     const hitTileLimit = checkTileLimits(updatedTileValues);
-
+    // Update the game state with the new hand, values, score, and check for game over conditions based on tile limits and reshuffle status.
     set({
       previousHand: currentHand,
       currentHand: newHand,

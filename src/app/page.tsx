@@ -20,7 +20,6 @@ export default function Home() {
       alignItems="center"
       justifyContent="center"
     >
-
       <VStack spacing={8} zIndex={1}>
         <Heading
           fontSize={{ base: "4xl", md: "6xl" }}
@@ -29,7 +28,6 @@ export default function Home() {
         >
           Hand Betting Game
         </Heading>
-
         <Button
           colorScheme="green"
           px={10}
@@ -42,8 +40,8 @@ export default function Home() {
         >
           New Game
         </Button>
-
-        <Leaderboard scores={scores} />
+        {/* Display the leaderboard only if there are scores to show */}
+        {scores.length > 0 && <Leaderboard scores={scores} />}
       </VStack>
     </Box>
   );

@@ -9,8 +9,9 @@ const MotionBox = motion(Box);
 export default function HandView({ hand }: { hand: Tile[] }) {
   const { tileValues } = useGameStore();
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" >
       <HStack>
+        {/* Render the tiles from the current hand*/}
         {hand.map((tile) => (
           <MotionBox
             key={tile.id}

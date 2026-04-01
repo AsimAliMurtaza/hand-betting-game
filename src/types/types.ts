@@ -10,7 +10,13 @@ export type BetType = "higher" | "lower";
 
 type GameOverReason = "tile_limit" | "deck_exhausted" | null;
 
-// Game state type definition. Includes the current state of the game and functions to manipulate it.
+export type TileProps = {
+  tile: Tile;
+  tileValues: Record<string, number>;
+  size?: "sm" | "md" | "lg" | "xl" | "xxl";
+};
+
+// Game state type definition.
 export type GameState = {
   drawPile: Tile[];
   discardPile: Tile[];
@@ -27,7 +33,6 @@ export type GameState = {
     hand: Tile[];
     value: number;
   }[];
-
   startGame: () => void;
   placeBet: (bet: BetType) => void;
 };

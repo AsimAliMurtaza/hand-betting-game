@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          {/* The main layout container with a subtle background pattern and centered content */}
           <Box
             mx="auto"
             display="flex"

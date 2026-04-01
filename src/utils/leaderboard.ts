@@ -5,6 +5,7 @@ export function getLeaderboard(): number[] {
   return JSON.parse(localStorage.getItem(KEY) || "[]");
 }
 
+// Updates the leaderboard by adding the new score, sorting the scores in descending order, and keeping only the top 5 scores before saving it back to localStorage.
 export function updateLeaderboard(score: number) {
   const current = getLeaderboard();
 

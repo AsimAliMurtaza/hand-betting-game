@@ -33,6 +33,7 @@ export default function GameBoard() {
           Back to Home
         </Button>
         <Button
+          // When clicked, reset the game by calling the startGame function from the game store
           onClick={() => startGame()}
           borderRadius="full"
           variant="solid"
@@ -44,6 +45,7 @@ export default function GameBoard() {
 
       <Box flex="1">
         <VStack spacing={6} align="stretch">
+          {/* Render the score panel at the top of the game board, which displays the current score, value, reshuffles, and pile counts */}
           <ScorePanel />
 
           <HStack spacing={6} justify="center" mt={4} mb={4}>
@@ -51,6 +53,7 @@ export default function GameBoard() {
             <DiscardStack count={discardPile.length} />
           </HStack>
           <HStack justify="center">
+            {/* Render the current hand using the HandView component, passing the currentHand from the game store as a prop */}
             <HandView hand={currentHand} />
           </HStack>
 
@@ -59,6 +62,7 @@ export default function GameBoard() {
       </Box>
 
       <Box w="350px" maxH="calc(100vh - 48px)" overflowY="auto" pr={2}>
+        {/* Render the history view, passing the history from the game store as a prop */}
         <HistoryView history={history} />
       </Box>
     </Box>

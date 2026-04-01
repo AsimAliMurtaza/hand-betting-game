@@ -9,6 +9,7 @@ type HistoryItem = {
 };
 
 export default function HistoryView({ history }: { history: HistoryItem[] }) {
+    //Take the history from gameboard and render it here.
   const { tileValues } = useGameStore();
   return (
     <Box mt={8} w="100%">
