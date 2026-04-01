@@ -22,7 +22,7 @@ export default function HistoryView({
 
           <HStack mt={2}>
             {item.hand.map((tile) => (
-              <TileCard key={tile.id} label={tile.label} />
+          <TileCard key={tile.id} tile={tile} />
             ))}
           </HStack>
         </Box>
