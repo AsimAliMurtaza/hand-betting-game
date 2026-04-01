@@ -6,16 +6,38 @@ import { useGameStore } from "@/stores/store";
 import HandView from "@/components/HandView";
 
 export default function GamePage() {
-  const { startGame, placeBet, currentHand, currentValue, tileValues, score } = useGameStore();
+  const {
+    startGame,
+    placeBet,
+    currentHand,
+    currentValue,
+    tileValues,
+    score,
+    isGameOver,
+    gameOverReason,
+  } = useGameStore();
 
   useEffect(() => {
     startGame();
   }, [startGame]);
 
+  if (isGameOver) {
+    return (
+      <Box p={6} textAlign="center" mt={10} borderWidth="1px" borderRadius="md">
+        <Text fontSize="2xl">Game Over</Text>
+
+        <Text mt={2}>Reason: {gameOverReason}</Text>
+        <Text mt={2}>Final Score: {score}</Text>
+
+        <Button mt={4} onClick={startGame}>
+          Restart Game
+        </Button>
+      </Box>
+    );
+  }
 
   return (
     <Box p={6} textAlign="center" mt={10} borderWidth="1px" borderRadius="md">
-
       <Text mt={2}>Score: {score}</Text>
       <Text mt={4}>Hand Value: {currentValue}</Text>
       <Text mt={2}>Tile Values: {JSON.stringify(tileValues)}</Text>

@@ -5,6 +5,7 @@ import { shuffle } from "@/utils/shuffle";
 import { INITIAL_TILE_VALUES, HAND_SIZE } from "@/constants/constants";
 import { calculateHandValue } from "@/utils/calculateHandValue";
 import { updateTileValues } from "@/utils/updateTileValues";
+import { checkTileLimits } from "@/utils/checkGameOver";
 
 export const useGameStore = create<GameState>((set, get) => ({
   drawPile: [],
@@ -15,6 +16,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   tileValues: { ...INITIAL_TILE_VALUES },
   currentValue: 0,
   previousValue: 0,
+  isGameOver: false,
+  gameOverReason: null,
 
   // Initialize the game state with a shuffled set of tiles
   startGame: () => {
@@ -33,6 +36,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       tileValues: { ...INITIAL_TILE_VALUES },
       currentValue: firstValue,
       previousValue: 0,
+      isGameOver: false,
+      gameOverReason: null,
     });
   },
 
@@ -55,6 +60,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     }
 
     const updatedTileValues = updateTileValues(newHand, tileValues, isWin);
+    const hitTileLimit = checkTileLimits(updatedTileValues);
 
     set({
       previousHand: currentHand,
@@ -68,11 +74,10 @@ export const useGameStore = create<GameState>((set, get) => ({
 
       score: isWin ? score + 1 : score,
       tileValues: updatedTileValues,
+      isGameOver: !isWin || hitTileLimit,
+      gameOverReason: hitTileLimit ? "tile_limit" : isWin ? null : "wrong_bet",
     });
 
-    if (!isWin) {
-      console.log("Game Over");
-    }
   },
   // draw a new hand of tiles, update the draw pile and discard pile accordingly
   drawHand: () => {

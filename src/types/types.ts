@@ -8,6 +8,11 @@ export type Tile = {
 
 export type BetType = "higher" | "lower";
 
+type GameOverReason =
+  | "tile_limit"
+  | "wrong_bet"
+  | null;
+
 // Game state type definition. Includes the current state of the game and functions to manipulate it.
 export type GameState = {
   drawPile: Tile[];
@@ -18,6 +23,8 @@ export type GameState = {
   previousValue: number;
   score: number;
   tileValues: Record<string, number>;
+    isGameOver: boolean;
+  gameOverReason: GameOverReason;
 
   startGame: () => void;
   drawHand: () => void;
