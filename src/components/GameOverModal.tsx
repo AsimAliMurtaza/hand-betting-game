@@ -8,9 +8,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useGameStore } from "@/stores/store";
+import { useRouter } from "next/navigation";
 
 export default function GameOverModal() {
   const { isGameOver, score, startGame } = useGameStore();
+  const router = useRouter();
 
   return (
     <Modal isOpen={isGameOver} onClose={() => {}}>
@@ -29,6 +31,10 @@ export default function GameOverModal() {
 
           <Button mt={4} onClick={startGame}>
             Play Again
+          </Button>
+
+          <Button mt={4} onClick={() => router.push("/")} colorScheme="teal">
+            Back to Home
           </Button>
         </ModalBody>
       </ModalContent>

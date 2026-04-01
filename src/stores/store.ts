@@ -10,6 +10,7 @@ import {
 import { calculateHandValue } from "@/utils/calculateHandValue";
 import { updateTileValues } from "@/utils/updateTileValues";
 import { checkTileLimits } from "@/utils/checkGameOver";
+import { reshuffleIfNeeded } from "@/utils/reshuffle";
 
 export const useGameStore = create<GameState>((set, get) => ({
   drawPile: [],
@@ -50,7 +51,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   placeBet: (bet) => {
-    const {
+    let {
       drawPile,
       currentHand,
       currentValue,
@@ -60,22 +61,21 @@ export const useGameStore = create<GameState>((set, get) => ({
       discardPile,
     } = get();
 
-    if (drawPile.length < HAND_SIZE) {
-      if (reshuffles >= MAX_RESHUFFLES) {
-        set({
-          isGameOver: true,
-          gameOverReason: "deck_exhausted",
-        });
-        return;
-      }
+    const reshuffleResult = reshuffleIfNeeded(
+      drawPile,
+      discardPile,
+      reshuffles,
+      MAX_RESHUFFLES,
+    );
 
-      const newDeck = shuffle([...discardPile, ...createTiles()]);
-
-      set({
-        drawPile: newDeck,
-        reshuffles: reshuffles + 1,
-      });
+    if (reshuffleResult.gameOver) {
+      set({ isGameOver: true, gameOverReason: "deck_exhausted" });
+      return;
     }
+
+    drawPile = reshuffleResult.drawPile;
+    discardPile = reshuffleResult.discardPile;
+    reshuffles = reshuffleResult.reshuffles;
 
     // draw next hand
     const newHand = drawPile.slice(0, HAND_SIZE);
@@ -83,7 +83,6 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     const newValue = calculateHandValue(newHand, tileValues);
 
-    // check result
     let isWin = false;
 
     if (bet === "higher") {
@@ -101,7 +100,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       previousValue: currentValue,
       currentValue: newValue,
       drawPile: remaining,
-      discardPile: [...get().discardPile, ...currentHand],
+      discardPile: [...discardPile, ...currentHand],
       reshuffles,
       history: [
         {
