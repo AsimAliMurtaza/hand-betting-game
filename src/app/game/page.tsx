@@ -11,10 +11,10 @@ export default function GamePage() {
     placeBet,
     currentHand,
     currentValue,
-    tileValues,
     score,
     isGameOver,
     gameOverReason,
+    reshuffles,
   } = useGameStore();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function GamePage() {
     <Box p={6} textAlign="center" mt={10} borderWidth="1px" borderRadius="md">
       <Text mt={2}>Score: {score}</Text>
       <Text mt={4}>Hand Value: {currentValue}</Text>
-      <Text mt={2}>Tile Values: {JSON.stringify(tileValues)}</Text>
+      <Text mt={2}>Reshuffles: {reshuffles} / 3</Text>
 
       <HandView hand={currentHand} />
 

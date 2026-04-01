@@ -2,7 +2,11 @@ import { create } from "zustand";
 import { GameState } from "@/types/types";
 import { createTiles } from "@/utils/createTiles";
 import { shuffle } from "@/utils/shuffle";
-import { INITIAL_TILE_VALUES, HAND_SIZE } from "@/constants/constants";
+import {
+  INITIAL_TILE_VALUES,
+  HAND_SIZE,
+  MAX_RESHUFFLES,
+} from "@/constants/constants";
 import { calculateHandValue } from "@/utils/calculateHandValue";
 import { updateTileValues } from "@/utils/updateTileValues";
 import { checkTileLimits } from "@/utils/checkGameOver";
@@ -18,6 +22,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   previousValue: 0,
   isGameOver: false,
   gameOverReason: null,
+  reshuffles: 0,
 
   // Initialize the game state with a shuffled set of tiles
   startGame: () => {
@@ -38,11 +43,38 @@ export const useGameStore = create<GameState>((set, get) => ({
       previousValue: 0,
       isGameOver: false,
       gameOverReason: null,
+      reshuffles: 0,
     });
   },
 
   placeBet: (bet) => {
-    const { drawPile, currentHand, currentValue, tileValues, score } = get();
+    const {
+      drawPile,
+      currentHand,
+      currentValue,
+      tileValues,
+      reshuffles,
+      score,
+      discardPile,
+    } = get();
+
+    if (drawPile.length < HAND_SIZE) {
+      if (reshuffles >= MAX_RESHUFFLES) {
+        set({
+          isGameOver: true,
+          gameOverReason: "deck_exhausted",
+        });
+        return;
+      }
+
+      // 🔀 reshuffle
+      const newDeck = shuffle([...discardPile, ...createTiles()]);
+
+      set({
+        drawPile: newDeck,
+        reshuffles: reshuffles + 1,
+      });
+    }
 
     // draw next hand
     const newHand = drawPile.slice(0, HAND_SIZE);
@@ -72,12 +104,13 @@ export const useGameStore = create<GameState>((set, get) => ({
       drawPile: remaining,
       discardPile: [...get().discardPile, ...currentHand],
 
+      reshuffles,
+
       score: isWin ? score + 1 : score,
       tileValues: updatedTileValues,
       isGameOver: !isWin || hitTileLimit,
-      gameOverReason: hitTileLimit ? "tile_limit" : isWin ? null : "wrong_bet",
+      gameOverReason: !isWin ? "wrong_bet" : hitTileLimit ? "tile_limit" : null,
     });
-
   },
   // draw a new hand of tiles, update the draw pile and discard pile accordingly
   drawHand: () => {
