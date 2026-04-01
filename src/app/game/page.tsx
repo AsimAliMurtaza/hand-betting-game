@@ -5,6 +5,11 @@ import { Button, Box, Text, HStack } from "@chakra-ui/react";
 import { useGameStore } from "@/stores/store";
 import HandView from "@/components/HandView";
 import HistoryView from "@/components/HistoryView";
+import { updateLeaderboard } from "@/utils/leaderboard";
+import Leaderboard from "@/components/Leaderboard";
+import { getLeaderboard } from "@/utils/leaderboard";
+
+const scores = getLeaderboard();
 
 export default function GamePage() {
   const {
@@ -23,6 +28,12 @@ export default function GamePage() {
     startGame();
   }, [startGame]);
 
+  useEffect(() => {
+  if (isGameOver) {
+    updateLeaderboard(score);
+  }
+}, [isGameOver, score]);
+
   if (isGameOver) {
     return (
       <Box p={6} textAlign="center" mt={10} borderWidth="1px" borderRadius="md">
@@ -30,6 +41,8 @@ export default function GamePage() {
 
         <Text mt={2}>Reason: {gameOverReason}</Text>
         <Text mt={2}>Final Score: {score}</Text>
+
+        <Leaderboard scores={scores} />
 
         <Button mt={4} onClick={startGame}>
           Restart Game
