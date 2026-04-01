@@ -1,4 +1,4 @@
-export type TileType = "number" | "dragon" | "wind";
+export type TileType = "number" | "dragon" | "wind" | "panda";
 
 export type Tile = {
   id: string;
@@ -14,6 +14,11 @@ export type TileProps = {
   tile: Tile;
   tileValues: Record<string, number>;
   size?: "sm" | "md" | "lg" | "xl" | "xxl";
+};
+
+export type HistoryItem = {
+  hand: Tile[];
+  value: number;
 };
 
 // Game state type definition.
