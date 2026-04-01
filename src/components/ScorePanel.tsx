@@ -3,9 +3,9 @@ import { useGameStore } from "@/stores/store";
 import { MAX_RESHUFFLES } from "@/constants/constants";
 
 export default function ScorePanel() {
+  //renders different things for score panel from game store.
   const { score, currentValue, reshuffles, drawPile, discardPile } =
     useGameStore();
-
   return (
     <Box
       px={8}

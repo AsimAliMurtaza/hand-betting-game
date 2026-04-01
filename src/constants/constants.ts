@@ -12,3 +12,4 @@ export const HAND_SIZE = 3;
 export const MAX_RESHUFFLES = 3;
 export const DRAGONS = ["redDragon", "greenDragon", "whiteDragon"];
 export const WINDS = ["eastWind", "westWind", "northWind", "southWind"];
+export const DECK_STACK_LAYER_SIZE = 5;

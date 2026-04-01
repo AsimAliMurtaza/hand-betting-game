@@ -1,6 +1,7 @@
 import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
 export default function Leaderboard({ scores }: { scores: number[] }) {
+    //receive the scores as props and renders the leaderboard
   return (
     <Box mt={6}>
       <Text

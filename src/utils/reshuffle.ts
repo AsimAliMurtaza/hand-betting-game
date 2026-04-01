@@ -1,6 +1,7 @@
 import { Tile } from "@/types/types";
 import { shuffle } from "./shuffle";
 
+
 export function reshuffleIfNeeded(
   drawPile: Tile[],
   discardPile: Tile[],
@@ -17,13 +18,13 @@ export function reshuffleIfNeeded(
   if (reshuffles >= maxReshuffles) {
     return { drawPile, discardPile, reshuffles, gameOver: true };
   }
-
+  // Reshuffle the discard pile back into the draw pile
   const newDeck = shuffle([...discardPile]);
 
   return {
     drawPile: newDeck,
     discardPile: [],
-    reshuffles: reshuffles + 1,
-    gameOver: false,
+    reshuffles: reshuffles + 1, // Increment the reshuffle count
+    gameOver: false, 
   };
 }

@@ -33,11 +33,11 @@ export default function GameOverModal() {
           <Text fontSize="xl" mb={4}>
             Your final score is {score}!
           </Text>
-
+            {/* Button to start a new game, which calls the startGame function from the game store */}
           <Button mt={4} onClick={startGame}>
             Play Again
           </Button>
-
+              {/* Button to go back to the home page */}
           <Button mt={4} onClick={() => router.push("/")} colorScheme="teal">
             Back to Home
           </Button>
