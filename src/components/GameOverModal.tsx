@@ -15,10 +15,16 @@ export default function GameOverModal() {
   return (
     <Modal isOpen={isGameOver} onClose={() => {}}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        bg="gray.50"
+        borderRadius="md"
+        p={6}
+        textAlign="center"
+        boxShadow="0 10px 25px rgba(0,0,0,0.2)"
+      >
         <ModalHeader>Game Over</ModalHeader>
 
-        <ModalBody>
+        <ModalBody display="flex" flexDirection="column" alignItems="center">
           <Text>Final Score: {score}</Text>
 
           <Button mt={4} onClick={startGame}>

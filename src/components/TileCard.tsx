@@ -30,8 +30,8 @@ export default function TileCard({ tile }: { tile: Tile }) {
 
   return (
     <Box
-      w="70px"
-      h="100px"
+      w="100px"
+      h="150px"
       borderWidth="2px"
       borderRadius="lg"
       bg={styles.bg}
@@ -41,17 +41,18 @@ export default function TileCard({ tile }: { tile: Tile }) {
       justifyContent="center"
       boxShadow="md"
       transition="all 0.2s ease"
+      
       _hover={{
         transform: "translateY(-4px) scale(1.05)",
         boxShadow: "lg",
       }}
     >
-      <VStack spacing={0}>
-        <Text fontSize="xs" color="gray.500">
+      <VStack spacing={6} textAlign="center">
+        <Text fontSize="sm" color="gray.500">
           {tile.type.toUpperCase()}
         </Text>
 
-        <Text fontSize="2xl" fontWeight="bold" color={styles.color}>
+        <Text fontSize="2xl" color={styles.color}>
           {formatLabel(tile.label)}
         </Text>
       </VStack>
@@ -60,7 +61,6 @@ export default function TileCard({ tile }: { tile: Tile }) {
 }
 
 function formatLabel(label: string) {
-  // make labels nicer
   if (label.includes("Dragon")) {
     return label.replace("Dragon", "🐉");
   }
