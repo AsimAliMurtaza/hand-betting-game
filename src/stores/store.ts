@@ -23,6 +23,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   isGameOver: false,
   gameOverReason: null,
   reshuffles: 0,
+  history: [],
 
   // Initialize the game state with a shuffled set of tiles
   startGame: () => {
@@ -44,6 +45,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       isGameOver: false,
       gameOverReason: null,
       reshuffles: 0,
+      history: [],
     });
   },
 
@@ -97,15 +99,18 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({
       previousHand: currentHand,
       currentHand: newHand,
-
       previousValue: currentValue,
       currentValue: newValue,
-
       drawPile: remaining,
       discardPile: [...get().discardPile, ...currentHand],
-
       reshuffles,
-
+      history: [
+        {
+          hand: currentHand,
+          value: currentValue,
+        },
+        ...get().history,
+      ].slice(0, 10), 
       score: isWin ? score + 1 : score,
       tileValues: updatedTileValues,
       isGameOver: !isWin || hitTileLimit,

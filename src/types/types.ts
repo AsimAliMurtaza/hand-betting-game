@@ -23,6 +23,10 @@ export type GameState = {
   isGameOver: boolean;
   gameOverReason: GameOverReason;
   reshuffles: number;
+  history: {
+    hand: Tile[];
+    value: number;
+  }[];
 
   startGame: () => void;
   drawHand: () => void;

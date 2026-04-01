@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Button, Box, Text, HStack } from "@chakra-ui/react";
 import { useGameStore } from "@/stores/store";
 import HandView from "@/components/HandView";
+import HistoryView from "@/components/HistoryView";
 
 export default function GamePage() {
   const {
@@ -15,6 +16,7 @@ export default function GamePage() {
     isGameOver,
     gameOverReason,
     reshuffles,
+    history,
   } = useGameStore();
 
   useEffect(() => {
@@ -53,6 +55,8 @@ export default function GamePage() {
           Bet Lower
         </Button>
       </HStack>
+
+      <HistoryView history={history} />
     </Box>
   );
 }
