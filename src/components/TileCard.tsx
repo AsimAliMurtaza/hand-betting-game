@@ -1,7 +1,10 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
 import { Tile } from "@/types/types";
+import { motion } from "framer-motion";
 
-export default function TileCard({ tile }: { tile: Tile }) {
+const MotionBox = motion(Box);
+
+export default function TileCard({ tile, tileValues }: { tile: Tile; tileValues: Record<string, number> }) {
   const getStyles = () => {
     if (tile.type === "number") {
       return {
@@ -29,7 +32,7 @@ export default function TileCard({ tile }: { tile: Tile }) {
   const styles = getStyles();
 
   return (
-    <Box
+    <MotionBox
       w="100px"
       h="150px"
       borderWidth="2px"
@@ -39,13 +42,9 @@ export default function TileCard({ tile }: { tile: Tile }) {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      boxShadow="md"
-      transition="all 0.2s ease"
-      
-      _hover={{
-        transform: "translateY(-4px) scale(1.05)",
-        boxShadow: "lg",
-      }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.08, y: -5 }}
     >
       <VStack spacing={6} textAlign="center">
         <Text fontSize="sm" color="gray.500">
@@ -55,8 +54,12 @@ export default function TileCard({ tile }: { tile: Tile }) {
         <Text fontSize="2xl" color={styles.color}>
           {formatLabel(tile.label)}
         </Text>
+
+        <Text fontSize="md" color={styles.color} fontWeight="bold">
+          {tileValues[tile.label] !== undefined ? `${tileValues[tile.label]} pts` : `${tile.label} pts`}
+        </Text>
       </VStack>
-    </Box>
+    </MotionBox>
   );
 }
 

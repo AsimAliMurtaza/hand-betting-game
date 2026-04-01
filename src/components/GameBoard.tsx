@@ -1,11 +1,17 @@
-import { Box, VStack, HStack } from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Button } from "@chakra-ui/react";
 import HandView from "./HandView";
 import Controls from "./Controls";
 import ScorePanel from "./ScorePanel";
 import HistoryView from "./HistoryView";
 import { useGameStore } from "@/stores/store";
+import DeckStack from "@/components/DeckStack";
+import DiscardStack from "@/components/DiscardStack";
+import { useRouter } from "next/navigation";
+
 export default function GameBoard() {
-  const { currentHand, history } = useGameStore();
+  const { currentHand, history, drawPile, discardPile, startGame } =
+    useGameStore();
+  const router = useRouter();
 
   return (
     <Box
@@ -17,10 +23,21 @@ export default function GameBoard() {
       gap={6}
       alignItems="flex-start"
     >
+      <Button onClick={() => router.push("/")} borderRadius="full" variant="solid" colorScheme="teal">
+        Back to Home
+      </Button>
+      <Button onClick={() => startGame()} borderRadius="full" variant="solid" colorScheme="green">
+        Reset Game
+      </Button>
+
       <Box flex="1">
         <VStack spacing={6} align="stretch">
           <ScorePanel />
 
+          <HStack spacing={6} justify="center" mt={4} mb={4}>
+            <DeckStack count={drawPile.length} />
+            <DiscardStack count={discardPile.length} />
+          </HStack>
           <HStack justify="center">
             <HandView hand={currentHand} />
           </HStack>

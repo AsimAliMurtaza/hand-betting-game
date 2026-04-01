@@ -31,10 +31,11 @@ export default function Home() {
         </Heading>
 
         <Button
-          colorScheme="teal"
+          colorScheme="green"
           px={10}
           py={6}
           fontSize="lg"
+          borderRadius="full"
           onClick={() => router.push("/game")}
           _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
           transition="all 0.2s ease"
