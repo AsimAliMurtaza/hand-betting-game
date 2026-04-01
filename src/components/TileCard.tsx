@@ -2,9 +2,14 @@ import { Box, Text, VStack } from "@chakra-ui/react";
 import { Tile } from "@/types/types";
 import { motion } from "framer-motion";
 
+type Props = {
+  tile: Tile;
+  tileValues: Record<string, number>;
+  size?: "sm" | "md" | "lg" | "xl" | "xxl";
+};
 const MotionBox = motion(Box);
 
-export default function TileCard({ tile, tileValues }: { tile: Tile; tileValues: Record<string, number> }) {
+export default function TileCard({ tile, tileValues, size }: Props) {
   const getStyles = () => {
     if (tile.type === "number") {
       return {
@@ -29,12 +34,41 @@ export default function TileCard({ tile, tileValues }: { tile: Tile; tileValues:
     };
   };
 
+  const sizeStyles = {
+    sm: {
+      w: "40px",
+      h: "60px",
+      fontSize: "xs",
+    },
+    md: {
+      w: "60px",
+      h: "90px",
+      fontSize: "sm",
+    },
+    lg: {
+      w: "80px",
+      h: "120px",
+      fontSize: "md",
+    },
+    xl: {
+      w: "120px",
+      h: "170px",
+      fontSize: "lg",
+    },
+    xxl: {
+      w: "200px",
+      h: "320px",
+      fontSize: "xl",
+    },
+  };
+
   const styles = getStyles();
+  const { w, h, fontSize } = sizeStyles[size || "md"];
 
   return (
     <MotionBox
-      w="100px"
-      h="150px"
+      w={w}
+      h={h}
       borderWidth="2px"
       borderRadius="lg"
       bg={styles.bg}
@@ -51,12 +85,13 @@ export default function TileCard({ tile, tileValues }: { tile: Tile; tileValues:
           {tile.type.toUpperCase()}
         </Text>
 
-        <Text fontSize="2xl" color={styles.color}>
+        <Text fontSize={fontSize} color={styles.color}>
           {formatLabel(tile.label)}
         </Text>
-
-        <Text fontSize="md" color={styles.color} fontWeight="bold">
-          {tileValues[tile.label] !== undefined ? `${tileValues[tile.label]} pts` : `${tile.label} pts`}
+        <Text fontSize={fontSize} color={styles.color} fontWeight="bold">
+          {tileValues[tile.label] !== undefined
+            ? `${tileValues[tile.label]} pts`
+            : `${tile.label} pts`}
         </Text>
       </VStack>
     </MotionBox>
