@@ -1,4 +1,4 @@
-export type TileType = "number" | "dragon" | "wind" | "panda";
+export type TileType = "number" | "dragon" | "wind";
 
 export type Tile = {
   id: string;
@@ -34,10 +34,7 @@ export type GameState = {
   isGameOver: boolean;
   gameOverReason: GameOverReason;
   reshuffles: number;
-  history: {
-    hand: Tile[];
-    value: number;
-  }[];
+  history: HistoryItem[];
   startGame: () => void;
   placeBet: (bet: BetType) => void;
 };

@@ -31,5 +31,5 @@ export const ALL_NON_CHAR_TILES = Object.values(TILE_GROUPS).flat();
 
 
 export const DECK_STACK_LAYER_SIZE = 5;
-export const HAND_SIZE = 5;
+export const HAND_SIZE = 3;
 export const MAX_RESHUFFLES = 2;

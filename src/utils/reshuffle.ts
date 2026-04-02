@@ -1,5 +1,6 @@
 import { Tile } from "@/types/types";
 import { shuffle } from "./shuffle";
+import { createTiles } from "./createTiles";
 
 
 export function reshuffleIfNeeded(
@@ -19,7 +20,7 @@ export function reshuffleIfNeeded(
     return { drawPile, discardPile, reshuffles, gameOver: true };
   }
   // Reshuffle the discard pile back into the draw pile
-  const newDeck = shuffle([...discardPile]);
+  const newDeck = shuffle([...createTiles(),...discardPile]);
 
   return {
     drawPile: newDeck,
